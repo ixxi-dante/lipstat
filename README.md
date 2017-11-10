@@ -10,4 +10,4 @@ Usage:
 
 ## TODO
 
-Get the list of machines directly from the [LIP list](http://intralip.lip.ens-lyon.fr/services/node_spec.html).
+Get the list of machines directly from the [LIP list](http://intralip.lip.ens-lyon.fr/services/node_spec.html) (only from the intranet).
