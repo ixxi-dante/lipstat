@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 if [ $# -ne 1 ]; then
   echo "Usage: $(basename $0) <machine-name>"
