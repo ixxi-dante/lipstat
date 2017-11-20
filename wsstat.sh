@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 if [ $# -ne 1 ]; then
   echo "Usage: $(basename $0) <machine-name>"
@@ -9,4 +9,4 @@ machine=$1
 
 # vmstat <delay> <number-of-iterations>
 # adjust to make the runtime shorter but the result less accurate
-ssh slerique@$machine.lip.ens-lyon.fr 'echo $[100 - $(vmstat 5 2 | tail -1 | awk "{print \$15}")]'
+ssh $machine.lip.ens-lyon.fr 'echo $[100 - $(vmstat 5 2 | tail -1 | awk "{print \$15}")]'
