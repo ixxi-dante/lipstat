@@ -1,10 +1,12 @@
 # LIP Stat
 
 Tells you which nodes at the LIP are not being used too much.
-Make sure you can log in to all the LIP workstations and Crunch machines with your ssh public key (password authentication is prevented in these scripts).
+Make sure:
+* You have access to the LIP intranet (used to get the node specs)
+* You can log in to all the LIP workstations and Crunch machines with your ssh public key (password authentication is prevented in these scripts).
 
 Dependencies:
-* [cURL](https://curl.haxx.se/) for getting the node specs from intranet
+* [cURL](https://curl.haxx.se/) for getting the node specs from the intranet
 * [Perl](https://www.perl.org/) and [xmllint](http://xmlsoft.org/xmllint.html) to parse the specs
 * [GNU Parallel](https://www.gnu.org/software/parallel/) to run the ssh connections in parallel
 
