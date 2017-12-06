@@ -1,10 +1,34 @@
 #!/bin/bash
 
-# The workstations-*.csv files list the hostnames and characteristics of the machines
+print_nodes_stat () {
+  header="Load,$(./nodes.sh --header $1 | sed 's/|/,/g')"
+  ./nodes.sh $1 \
+    | parallel -j 40 "echo \$(./nodestat.sh {= s/\|.*//g =} $2)\"%|\"{}" \
+    | sort -n \
+    | column -t -s '|' -N "$header" -R Load
+}
 
+if [ $# -eq 0 ]; then
+  delay=5
+elif [ $# -eq 1 ]; then
+  delay=$1
+else
+  echo "Usage: $(basename $0) [DELAY_SECONDS=5]"
+  exit 1
+fi
+
+echo "Getting load over $delay second(s)..."
+echo
+
+echo "================"
 echo "LIP Workstations"
-cat workstations-lip.csv | grep -v '^#' | parallel -C ' ' 'printf "%4s" "$(./wsstat.sh {1})%" && echo "  "{}' | sort -n
+echo "================"
+echo
+print_nodes_stat workstation $delay
 
 echo
+echo "==================="
 echo "Crunch Workstations"
-cat workstations-crunch.csv | grep -v '^#' | parallel -C ' ' 'printf "%4s" "$(./wsstat.sh {1})%" && echo "  "{}' | sort -n
+echo "==================="
+echo
+print_nodes_stat crunch $delay
