@@ -1,16 +1,17 @@
 # LIP Stat
 
-Tell me what machines at the LIP are not being used too much.
-
+Tells you which nodes at the LIP are not being used too much.
 Make sure you can log in to all the LIP workstations and Crunch machines with your ssh public key (password authentication is prevented in these scripts).
 
 Dependencies:
-* [GNU Parallel](https://www.gnu.org/software/parallel/)
-* Perl
-* cURL
+* [cURL](https://curl.haxx.se/) for getting the node specs from intranet
+* [Perl](https://www.perl.org/) and [xmllint](http://xmlsoft.org/xmllint.html) to parse the specs
+* [GNU Parallel](https://www.gnu.org/software/parallel/) to run the ssh connections in parallel
 
 Usage: 
 ```
-./nodestat.sh <machine>  # To get a single machine's load
-./lipstat.sh             # To sort all machines by their load
+./nodestat.sh <machine>  # To get a single node's load
+./lipstat.sh             # To sort all nodes by their load
 ```
+
+The fingerprints of the nodes' ssh keys will be scanned and stored locally in `./known_hosts`, so that you're not asked to confirm them when these scripts log in to a node for the first time.
