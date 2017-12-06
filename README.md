@@ -2,7 +2,7 @@
 
 Tells you which nodes at the LIP are not being used too much.
 Make sure:
-* You have access to the LIP intranet (used to get the node specs)
+* You have access to the LIP intranet (used to get the node specs), usually using the VPN
 * You can log in to all the LIP workstations and Crunch machines with your ssh public key (password authentication is prevented in these scripts).
 
 Dependencies:
