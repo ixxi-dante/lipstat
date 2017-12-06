@@ -3,7 +3,7 @@
 print_nodes_stat () {
   header="Load,$(./nodes.sh --header $1 | sed 's/|/,/g')"
   ./nodes.sh $1 \
-    | parallel -j 40 "echo \$(./nodestat.sh {= s/\|.*//g =} $2)\"%|\"{}" \
+    | parallel -j0 "echo \$(./nodestat.sh {= s/\|.*//g =} $2)\"%|\"{}" \
     | sort -n \
     | column -t -s '|' -N "$header" -R Load
 }
