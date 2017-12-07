@@ -1,11 +1,12 @@
 #!/bin/bash
 
 print_nodes_stat () {
-  header="Load,Mem (Free),Mem (Cache),Local Disk (Free),$(./nodes.sh --header $1 | sed 's/|/,/g')"
+  header="%User,%Nice,Mem (Free),Mem (Cache),Local Disk (Free),$(./nodes.sh --header $1 | sed 's/|/,/g')"
   ./nodes.sh $1 \
     | parallel -j0 "echo \$(./nodestat.sh {= s/\|.*//g =} $2)\"|\"{}" \
-    | sort -n \
-    | column -t -s '|' -N "$header" -R "Load,Mem (Free),Mem (Cache),Local Disk (Free)"
+    | sed 's/^|/-|-|-|-|-|/g' \
+    | sort -t '|' -k 1n,2n \
+    | column -t -s '|' -N "$header" -R "%User,%Nice,Mem (Free),Mem (Cache),Local Disk (Free)"
 }
 
 if [ $# -eq 0 ]; then

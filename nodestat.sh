@@ -20,14 +20,9 @@ if [ ! -f known_hosts ] || ! grep -q "^$machine_fqdn" known_hosts; then
   ssh-keyscan -t rsa,dsa $machine_fqdn 2>/dev/null >> known_hosts
 fi
 
-# vmstat <delay> <number-of-iterations>
-# adjust to make the runtime shorter but the result less accurate
-# $15 = idle cpu
-# $4 = free memory
-# $6 = cache memory
 ssh \
   -o PasswordAuthentication=False \
   -o UserKnownHostsFile=./known_hosts \
   $machine_fqdn \
-  "echo \$(vmstat -S M $delay 2 | tail -1 | awk '{printf \"%d%%|%.2fG|%.2fG\", 100-\$15, \$4/1024, \$6/1024}')\"|\"\$(df -h | grep -F /local | awk '{print \$4}')" \
+  "echo \$(sar -u $delay 1 | tail -1 | awk '{printf \"%d%%|%d%%\", \$3, \$4}')\|\$(sar -r 1 1 | tail -1 | awk '{printf  \"%.2fG|%.2fG\", \$2/1048576, \$6/1048576}')\|\$(df -h | grep -F /local | awk '{print \$4}')" \
   2>/dev/null
