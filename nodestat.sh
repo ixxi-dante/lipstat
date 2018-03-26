@@ -23,6 +23,7 @@ fi
 ssh \
   -o PasswordAuthentication=False \
   -o UserKnownHostsFile=./known_hosts \
+  -o ConnectTimeout=10 \
   $machine_fqdn \
   "echo \$(sar -u $delay 1 | tail -1 | awk '{printf \"%d%%|%d%%\", \$3, \$4}')\|\$(sar -r 1 1 | tail -1 | awk '{printf  \"%.2fG|%.2fG\", \$2/1048576, \$6/1048576}')\|\$(df -h | grep -F /local | awk '{print \$4}')" \
   2>/dev/null
