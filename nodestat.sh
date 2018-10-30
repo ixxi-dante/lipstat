@@ -11,18 +11,22 @@ else
 fi
 machine=$1
 machine_fqdn=$machine.lip.ens-lyon.fr
+BASEDIR=$(dirname $(readlink -f $0))
+LIPSTAT_CACHE=${XDG_CACHE_HOME:-$HOME/.cache}/lipstat
+mkdir -p $LIPSTAT_CACHE
+KNOWN_HOSTS=$LIPSTAT_CACHE/known_hosts
 
 # Check we already have the host's keys, otherwise store it locally
 # This is okay as we're only doing key-based authentication (no passwords to
 # be snooped), and only running vmstat on the host machines, so a MITM has
 # no real risk
-if [ ! -f known_hosts ] || ! grep -q "^$machine_fqdn" known_hosts; then
-  ssh-keyscan -t rsa,dsa $machine_fqdn 2>/dev/null >> known_hosts
+if [ ! -f $KNOWN_HOSTS ] || ! grep -q "^$machine_fqdn" $KNOWN_HOSTS; then
+  ssh-keyscan -t rsa,dsa $machine_fqdn 2>/dev/null >> $KNOWN_HOSTS
 fi
 
 ssh \
   -o PasswordAuthentication=False \
-  -o UserKnownHostsFile=./known_hosts \
+  -o UserKnownHostsFile=$KNOWN_HOSTS \
   -o ConnectTimeout=10 \
   $machine_fqdn \
   "echo \$(sar -u $delay 1 | tail -1 | awk '{printf \"%d%%|%d%%\", \$3, \$4}')\|\$(sar -r 1 1 | tail -1 | awk '{printf  \"%.2fG|%.2fG\", \$2/1048576, \$6/1048576}')\|\$(df -h | grep -F /local | awk '{print \$4}')" \
