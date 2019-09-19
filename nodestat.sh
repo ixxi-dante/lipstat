@@ -11,7 +11,6 @@ else
 fi
 machine=$1
 machine_fqdn=$machine.lip.ens-lyon.fr
-BASEDIR=$(dirname $(readlink -f $0))
 LIPSTAT_CACHE=${XDG_CACHE_HOME:-$HOME/.cache}/lipstat
 mkdir -p $LIPSTAT_CACHE
 KNOWN_HOSTS=$LIPSTAT_CACHE/known_hosts

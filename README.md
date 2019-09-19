@@ -6,14 +6,21 @@ Tells you which nodes at the LIP are not being used too much.
 
 Make sure that:
 * You have access to the LIP intranet (used to get the node specs), usually using the VPN
-* You can log in to all the LIP workstations and Crunch machines with your ssh public key (password authentication is prevented in these scripts).
+* Your LIP username is configured in `.ssh/config`, e.g. with:
+```
+Host *.lip.ens-lyon.fr
+    User <username>
+```
+* You can log in to all the LIP workstations and/or Crunch machines with your ssh public key (password authentication is prevented in these scripts).
 
-Dependencies:
+If the above conditions are fulfilled, you should be able to run e.g. `ssh tomate@lip.ens-lyon.fr` and be logged in **without having to enter a password or add your username to the command**.
+
+Next, make sure you have the following dependencies installed:
 * [cURL](https://curl.haxx.se/) for getting the node specs from the intranet
 * [Perl](https://www.perl.org/) and [xmllint](http://xmlsoft.org/xmllint.html) to parse the specs
-* [GNU Parallel](https://www.gnu.org/software/parallel/) to run the ssh connections in parallel
+* [GNU Parallel](https://www.gnu.org/software/parallel/) to run the ssh connections in parallel (on OSX: `brew install parallel`)
 
-Usage: 
+Usage:
 ```
 ./lipstat.sh  # Sorts all nodes by their usage and pretty prints various load statistics
 ```
@@ -33,7 +40,7 @@ The script will report the following fields for each machine:
 The first five are gathered over 5 seconds on the machines, the last 5 come from the LIP intranet. The list is ordered by `%User` first, and `%Nice` second.
 
 You can also use `./nodestat.sh <machine>` the get the (unformatted) load information of a single machine.
-Note that the fingerprints of the nodes' ssh keys will be scanned and stored locally in `./known_hosts`, so that you're not asked to confirm them when these scripts log in to a node for the first time.
+Note that the fingerprints of the nodes' ssh keys will be scanned and stored locally in `~/.cache/lipstat/known_hosts`, so that you're not asked to confirm them when these scripts log in to a node for the first time.
 
 ## Problems?
 
