@@ -6,7 +6,7 @@ Tells you which nodes at the LIP are not being used too much.
 
 Make sure that:
 * You have access to the LIP intranet (used to get the node specs), usually using the VPN
-* Your LIP username is configured in `.ssh/config`, e.g. with:
+* Your LIP username is configured in `~/.ssh/config`, e.g. with:
 ```
 Host *.lip.ens-lyon.fr
     User <username>
