@@ -17,7 +17,7 @@ If the above conditions are fulfilled, you should be able to run e.g. `ssh tomat
 
 Next, make sure you have the following dependencies installed:
 * [cURL](https://curl.haxx.se/) for getting the node specs from the intranet
-* [Perl](https://www.perl.org/) and [xmllint](http://xmlsoft.org/xmllint.html) to parse the specs
+* [xmllint](http://xmlsoft.org/xmllint.html) to parse the specs
 * [GNU Parallel](https://www.gnu.org/software/parallel/) to run the ssh connections in parallel (on OSX: `brew install parallel`)
 
 To use it: clone this reposiory, `cd` into it, then:

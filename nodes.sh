@@ -7,11 +7,12 @@ nodes_url="http://intralip.lip.ens-lyon.fr/services/node_spec.html"
 
 print_table_as_csv () {
   echo $1 \
-    | perl -00pe "s/ *<\/t[dh]>[^<]*<t[dh][^>]*> */|/gs" \
-    | perl -00pe "s/ *<\/t[dh]>[^<]*<\/tr>[^<]*<tr[^>]*>[^<]*<t[dh][^>]*> */\n/gs" \
-    | perl -00pe "s/ *<tr[^>]*>[^<]*<t[dh][^>]*> *//gs" \
-    | perl -00pe "s/ *<\/t[dh]>[^<]*<\/tr> *//gs" \
-    | perl -pe "s/[\t ]+/ /g"
+    | sed -e "s/ *<\/t[dh]>[^<]*<t[dh][^>]*> */|/g" \
+    | sed -e "s/ *<\/t[dh]>[^<]*<t[dh][^>]*> */|/g" \
+    | sed -e "s/ *<\/t[dh]>[^<]*<\/tr>[^<]*<tr[^>]*>[^<]*<t[dh][^>]*> */\n/g" \
+    | sed -e 's/ *<tr[^>]*>[^<]*<t[dh][^>]*> *//g' \
+    | sed -e 's/ *<\/t[dh]>[^<]*<\/tr> *//' \
+    | sed -e 's/[\t ]\+/ /g'
 }
 
 get_nodes () {
