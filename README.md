@@ -13,7 +13,7 @@ Host *.lip.ens-lyon.fr
 ```
 * You can log in to all the LIP workstations and/or Crunch machines with your ssh public key (password authentication is prevented in these scripts).
 
-If the above conditions are fulfilled, you should be able to run e.g. `ssh tomate@lip.ens-lyon.fr` and be logged in **without having to enter a password or add your username to the command**.
+If the above conditions are fulfilled, you should be able to run e.g. `ssh tomate.lip.ens-lyon.fr` and be logged in **without having to enter a password or add your username to the command**.
 
 Next, make sure you have the following dependencies installed:
 * [cURL](https://curl.haxx.se/) for getting the node specs from the intranet
